@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
        ### check for row
