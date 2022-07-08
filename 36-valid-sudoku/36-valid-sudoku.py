@@ -1,25 +1,31 @@
 import numpy as np
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-            ninematrix=rowcol=0
-            b=np.array(board)
-            for i in range(b.shape[0]):
-                for j in range(b.shape[1]):
-                    if b[i][j]!='.':
-                        if np.count_nonzero(b[i][:]==b[i][j])==1 and                                 np.count_nonzero(b[:,j]==b[i][j])==1:            
-                           rowcol+=1
-                          # print(rowcol)             
-                    else:
-                           rowcol+=1
-            print(rowcol)               
-            if rowcol==b.size:
-                #list=[]=1
-                for i in range(3,b.shape[0]+1,3):
-                    for j in range(3,b.shape[1]+1,3):
-                        b_part=b[i-3:i,j-3:j]
+       ### check for row
+        for i in range(len(board)):
+            list=[]
+            for j in range(len(board)):
+                if board[i][j]=='.': continue
+                if board[i][j] in list:
+                    return False
+                list.append(board[i][j])
+        ### check for column
+        for i in range(len(board)):
+            list=[]
+            for j in range(len(board)):
+                if board[j][i]=='.': continue
+                if board[j][i] in list:
+                    return False
+                list.append(board[j][i])   
+        ### check for 3X3 Box     
+        for i in range(0,len(board)-2,3):
+            for j in range(0,len(board)-2,3):
+                        #b_part=board[i-3:i,j-3:j]
+                        list=[]
                         for m in range(3):
                             for n in range(3):
-                                if (b_part[m][n]=='.' or                                                  np.count_nonzero(b_part[::]==b_part[m][n])==1):
-                                    ninematrix+=1
-                                    if ninematrix==b.size:
-                                        return True
+                                if board[i+m][j+n]=='.': continue
+                                if board[i+m][j+n] in list:
+                                    return False
+                                list.append(board[i+m][j+n])  
+        return True                                                     
